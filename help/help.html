@@ -1,0 +1,81 @@
+{# Generated from phi-plugin art-template syntax. Review docs/jinja2-template-migration.md before runtime use. #}
+{% extends "common/layout/default.html" %}
+{% block css %}
+
+<link rel="stylesheet" href="{{ _res_path }}html/help/help.css">
+
+{% endblock %}
+{% block main %}
+
+    
+    {% for group in helpGroup %}
+    {% if group.auth!="master" or isMaster %}
+    {% set len = group.list|default([])|length %}
+    <div class="help_box">
+        <div class="help-group">——·{{ group.group }}·——</div>
+        {% if len > 0 %}
+        {% for help in group.list %}{% set idx = loop.index0 %}
+        <div class="line">
+            <div class="order">
+                {% if cmdHead %}
+                <p name="pvis">{{ help.title|replace('/', cmdHead ~ ' ')|replace('杠', cmdHead ~ ' ')|replace('钢', cmdHead ~ ' ')|replace('刚', cmdHead ~ ' ')|safe }}</p>
+                {% else %}
+                <p name="pvis">{{ help.title|safe }}</p>
+                {% endif %}
+            </div>
+            <div class="info_box">
+                <div class="up">
+                    <div class="num">{{ idx + 1 }}</div>
+                    <div class="song">
+                        {% if cmdHead %}
+                        <p name="pvis">{{ (help.eg|default(help.title, true))|replace('/', cmdHead ~ ' ')|replace('杠', cmdHead ~ ' ')|replace('钢', cmdHead ~ ' ')|replace('刚', cmdHead ~ ' ')|safe }}</p>
+                        {% else %}
+                        <p name="pvis">{{ (help.eg  or  help.title)|safe }}</p>
+                        {% endif %}
+                    </div>
+                    <!-- <div class="Master">Master</div> -->
+                </div>
+                <div class="down">
+                    <div class="desc">
+                        {% if help.desc %}
+                        <p name="pvis">{{ help.desc|replace(' ', '&ensp;')|safe }}</p>
+                        {% endif %}
+                        {% if help.img %}
+                        <img src="{{ _res_path }}html/otherimg/{{ help.img }}" alt="{{ help.img }}">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <div class="createdbox">
+        <div class="phi-plugin">
+            <p>{{ _plugin }}</p>
+        </div>
+        <div class="ver">
+            <p>{{ Version.ver }}</p>
+        </div>
+    </div>
+    
+    {% if theme == "snow" %}
+    <div class="snow-box"> </div>
+    <script>
+        themeSnow();
+    </script>
+    {% elif theme == "topText"  or  theme == "foolsDay" %}
+    <div class="topTextBox" id="topTextBox"></div>
+    <script>
+        themeTopText();
+    </script>
+    {% elif theme == "star" %}
+    <canvas id="stars"></canvas>
+    <script>
+        themeStar();
+    </script>
+    {% endif %}
+{% endblock %}

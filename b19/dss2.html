@@ -1,0 +1,295 @@
+{# Generated from phi-plugin art-template syntax. Review docs/jinja2-template-migration.md before runtime use. #}
+{% extends "common/layout/default.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ _res_path }}html/b19/dss2.css">
+{% endblock %}
+
+{% block main %}
+  <div class="title">
+    <div class="gameuser_background">
+      <div class="gameuser_background_cover_block"></div>
+      <img
+        src="{{ BSIllPath }}"
+        alt="BS"
+      />
+    </div>
+    <div class="frontBlock"></div>
+    <div class="phigrosTitle">
+      <div class="blackBar clip-box-right"></div>
+      <p>Phigros</p>
+    </div>
+    <div class="titleDesc">
+      <p class="weight-font">RKS组成列表</p>
+    </div>
+    <div class="titlePlayerInfo">
+      <div class="playerId">
+        <p name="pvis" class="weight-font">{{ gameuser.PlayerId|safe }}</p>
+      </div>
+      <div class="rks">
+        <div class="clgBox">
+          <div class="Challenge">
+            <img src="{{ _res_path }}html/otherimg/{{ gameuser.ChallengeMode }}.png" alt="Challenge">
+            <p>{{ gameuser.ChallengeModeRank }}</p>
+          </div>
+        </div>
+        <p class="weight-font">{{ ('%.4f'|format(gameuser.rks)) }}</p>
+      </div>
+    </div>
+    <div class="backBlockBox">
+      <div class="backBlock1"></div>
+      <div class="backBlock2"></div>
+      <div class="backBlock3">
+        <div class="dataBox clip-box">
+          <img src="{{ _res_path }}html/otherimg/data.png" alt="data">
+          <p>{{ gameuser.data }}</p>
+        </div>
+        {% if spInfo %}
+        {% for v in spInfo %}
+        <div class="spInfo colorful-background clip-box">
+          <p>{{ v }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% set overflow_index = 27 if phi else 30 %}
+<div class="label clip-box-right">
+    <p class="skew weight-font">P3</p>
+  </div>
+
+  <div class="content-box">
+    {% if phi %}
+
+    {% for song in phi %}
+
+    <div class="song phi_song">
+      <div class="leftBar clip-box"></div>
+      <div class="numBox">
+        <p class="weight-font">P{{ loop.index0+1 }}</p>
+        <p class="">P{{ loop.index0+1 }}</p>
+        <p class="">P{{ loop.index0+1 }}</p>
+      </div>
+      <div class="starBox">
+        <div class="star"></div>
+      </div>
+      
+      {% if song %}
+      <div class="rank-{{ song.rank }} clip-box">
+          <div class="org">
+              <p>{{ song.rank }}&ensp;{{ ('%.1f'|format(song.difficulty)) }}</p>
+          </div>
+          <div class="rel">
+              <p>{{ ('%.2f'|format(song.rks)) }}</p>
+          </div>
+      </div>
+      <div class="ill clip-box">
+        <img src="{{ song.illustration }}" alt="ill">
+      </div>
+      
+      <div class="info-AT">
+        <div class="songname">
+          <p name="pvis">{{ song.song }}</p>
+        </div>
+        <div class="acc-box">
+          <div class="acc">
+              <p>{{ ('%.2f'|format(song.acc)) }}%</p>
+          </div>
+          <div class="suggest suggest-kind-{{ song.suggestType }}">
+              <div class="suggest-tip"></div>
+              <p>{{ song.suggest }}</p>
+          </div>
+        </div>
+        <div class="chengji">
+          <div class="score">
+            <p>{{ song.score }}</p>
+          </div>
+          <div class="line"></div>
+          <div class="Rating">
+            <img src="{{ _res_path }}html/otherimg/{{ song.Rating }}.png" alt="{{ song.Rating }}">
+          </div>
+        </div>
+      </div>
+      {% else %}
+      
+      <div class="clipBarBox clipBarBox1">
+        <div class="clipBar clip-box"></div>
+        <div class="clipBar clip-box"></div>
+        <div class="clipBar clip-box"></div>
+        <div class="clipBar clip-box"></div>
+        <div class="clipBar clip-box"></div>
+      </div>
+      <div class="clipBarBox clipBarBox2">
+        <div class="clipBar clip-box"></div>
+        <div class="clipBar clip-box"></div>
+        <div class="clipBar clip-box"></div>
+        <div class="clipBar clip-box"></div>
+        <div class="clipBar clip-box"></div>
+      </div>
+      <div class="noBestTip">
+        <p>虚位以待</p>
+        <p>虚位以待</p>
+        <p>虚位以待</p>
+        <p>虚位以待</p>
+        <p>虚位以待</p>
+      </div>
+      {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+  </div>
+  <div class="label clip-box-right">
+    <p class="skew weight-font">B27</p>
+  </div>
+
+  
+  <div class="content-box">
+  
+    {% for song in b19_list %}
+    {% if loop.index0 < overflow_index %}
+    <div class="song b_song">
+      <div class="leftBar clip-box"></div>
+      <div class="numBox">
+        <p class="weight-font">B{{ loop.index0+1 }}</p>
+        <p class="">B{{ loop.index0+1 }}</p>
+        <p class="">B{{ loop.index0+1 }}</p>
+      </div>
+      <div class="starBox">
+        <div class="star"></div>
+      </div>
+      <div class="rank-{{ song.rank }} clip-box">
+          <div class="org">
+              <p>{{ song.rank }}&ensp;{{ ('%.1f'|format(song.difficulty)) }}</p>
+          </div>
+          <div class="rel">
+              <p>{{ ('%.2f'|format(song.rks)) }}</p>
+          </div>
+      </div>
+      <div class="ill clip-box">
+        <img src="{{ song.illustration }}" alt="ill">
+      </div>
+      
+      <div class="info-AT">
+        <div class="songname">
+          <p name="pvis">{{ song.song }}</p>
+        </div>
+        <div class="acc-box">
+          <div class="acc">
+              <p>{{ ('%.2f'|format(song.acc)) }}%</p>
+          </div>
+          <div class="suggest suggest-kind-{{ song.suggestType }}">
+              <div class="suggest-tip"></div>
+              <p>{{ song.suggest }}</p>
+          </div>
+        </div>
+        <div class="chengji">
+          <div class="score">
+            <p>{{ song.score }}</p>
+          </div>
+          <div class="line"></div>
+          <div class="Rating">
+            <img src="{{ _res_path }}html/otherimg/{{ song.Rating }}.png" alt="{{ song.Rating }}">
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+  
+  
+  {% if (b19_list|length) > overflow_index %}
+
+  <div class="label clip-box-right">
+    <p class="skew weight-font">OVERFLOW</p>
+  </div>
+  
+  {% endif %}
+  
+  <div class="content-box">
+  
+    {% for song in b19_list %}
+    {% if loop.index0 >= overflow_index %}
+    <div class="song">
+      <div class="leftBar clip-box"></div>
+      <div class="numBox">
+        <p class="weight-font">B{{ loop.index0+1 }}</p>
+        <p class="">B{{ loop.index0+1 }}</p>
+        <p class="">B{{ loop.index0+1 }}</p>
+      </div>
+      <div class="starBox">
+        <div class="star"></div>
+      </div>
+      <div class="rank-{{ song.rank }} clip-box">
+          <div class="org">
+              <p>{{ song.rank }}&ensp;{{ ('%.1f'|format(song.difficulty)) }}</p>
+          </div>
+          <div class="rel">
+              <p>{{ ('%.2f'|format(song.rks)) }}</p>
+          </div>
+      </div>
+      <div class="ill clip-box">
+        <img src="{{ song.illustration }}" alt="ill">
+      </div>
+      
+      <div class="info-AT">
+        <div class="songname">
+          <p name="pvis">{{ song.song }}</p>
+        </div>
+        <div class="acc-box">
+          <div class="acc">
+              <p>{{ ('%.2f'|format(song.acc)) }}%</p>
+          </div>
+          <div class="suggest suggest-kind-{{ song.suggestType }}">
+              <div class="suggest-tip"></div>
+              <p>{{ song.suggest }}</p>
+          </div>
+        </div>
+        <div class="chengji">
+          <div class="score">
+            <p>{{ song.score }}</p>
+          </div>
+          <div class="line"></div>
+          <div class="Rating">
+            <img src="{{ _res_path }}html/otherimg/{{ song.Rating }}.png" alt="{{ song.Rating }}">
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="createdbox">
+    <div class="phi-plugin">
+        <p>{{ _plugin }}</p>
+    </div>
+    <div class="ver">
+        <p>{{ Version.ver }}</p>
+    </div>
+  </div>
+
+  {% if theme == "snow" %}
+  <div class="snow-box"> </div>
+  <script>
+      themeSnow();
+  </script>
+  {% elif theme == "topText"  or  theme == "foolsDay" %}
+  <div class="topTextBox" id="topTextBox"></div>
+  <script>
+      themeTopText();
+  </script>
+  {% elif theme == "star" %}
+  <canvas id="stars"></canvas>
+  <script>
+      themeStar();
+  </script>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,221 @@
+{# Generated from phi-plugin art-template syntax. Review docs/jinja2-template-migration.md before runtime use. #}
+{% extends "common/layout/default.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ _res_path }}html/analyzeSaveHistory/analyzeSaveHistory.css">
+{% endblock %}
+
+{% block main %}
+{% set s = stats %}
+
+<div id="container" class="page">
+  <header class="header">
+    <div class="title">
+      <div class="title-main">存档历史分析</div>
+      <div class="title-sub">统计范围为绑定至今</div>
+    </div>
+
+    <div class="meta">
+      {% if s.generatedAt %}
+        <div class="meta-item">
+          <span class="meta-k">生成时间</span>
+          <span class="meta-v">{{ s.generatedAt }}</span>
+        </div>
+      {% endif %}
+      <div class="meta-item">
+        <span class="meta-k">统计口径</span>
+        <span class="meta-v">按本地日期聚合；更新次数按时间戳去重</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="grid grid-3">
+    <div class="card">
+      <div class="card-h">查分天数</div>
+      <div class="card-v">{{ (s.totalDays|default(0)) }}</div>
+      <div class="card-s">发生过 score / rks / data / challenge 任一事件的天数</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">更新次数</div>
+      <div class="card-v">{{ (s.totalUpdates|default(0)) }}</div>
+      <div class="card-s">按所有事件时间戳去重统计</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">RKS 最大波动</div>
+      <div class="split">
+        <div class="split-item">
+          <div class="badge up">UP</div>
+          <div class="split-body">
+            <div class="split-line"><span>日期</span><span>{{ s.rksMaxUpDay.day }}</span></div>
+            <div class="split-line"><span>增量</span><span class="strong">{{ s.rksMaxUpDay.delta }}</span></div>
+          </div>
+        </div>
+        <div class="split-item">
+          <div class="badge down">DOWN</div>
+          <div class="split-body">
+            <div class="split-line"><span>日期</span><span>{{ s.rksMaxDownDay.day }}</span></div>
+            <div class="split-line"><span>增量</span><span class="strong">{{ s.rksMaxDownDay.delta }}</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-s">按天累计增量</div>
+    </div>
+  </section>
+
+  <section class="grid grid-2">
+    <div class="card">
+      <div class="card-h">打得最多的曲目</div>
+      <div class="ranklist">
+        {% for it in s.mostPlayedSongsTop3 %}{% set idx = loop.index0 %}
+          <div class="rankitem">
+            <div class="rankno">#{{ idx + 1 }}</div>
+            <div class="rankmain mono">{{ it.id }}</div>
+            <div class="rankside">{{ (it.count|default(0)) }}</div>
+          </div>
+        {% endfor %}
+        {% if not (s.mostPlayedSongsTop3  and  s.mostPlayedSongsTop3.length) %}
+          <div class="rankitem">
+            <div class="rankno">#1</div>
+            <div class="rankmain">--</div>
+            <div class="rankside">--</div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="card-s">按曲目 id 统计 score 记录条数</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">总新纪录 / 总 Note</div>
+      <div class="statcard">
+        <div class="statcard-k">总新纪录</div>
+        <div class="statcard-v strong">{{ (s.resTotalScoreRecords.count if s  and  s.resTotalScoreRecords else '--') }}</div>
+      </div>
+      <div class="statgrid">
+        <div class="statcard">
+          <div class="statcard-k">Tap</div>
+          <div class="statcard-v">{{ (s.resTotalScoreRecords.tap if s  and  s.resTotalScoreRecords else '--') }}</div>
+        </div>
+        <div class="statcard">
+          <div class="statcard-k">Drag</div>
+          <div class="statcard-v">{{ (s.resTotalScoreRecords.drag if s  and  s.resTotalScoreRecords else '--') }}</div>
+        </div>
+        <div class="statcard">
+          <div class="statcard-k">Hold</div>
+          <div class="statcard-v">{{ (s.resTotalScoreRecords.hold if s  and  s.resTotalScoreRecords else '--') }}</div>
+        </div>
+        <div class="statcard">
+          <div class="statcard-k">Flick</div>
+          <div class="statcard-v">{{ (s.resTotalScoreRecords.flick if s  and  s.resTotalScoreRecords else '--') }}</div>
+        </div>
+        <div class="statcard">
+          <div class="statcard-k">Combo</div>
+          <div class="statcard-v">{{ (s.resTotalScoreRecords.combo if s  and  s.resTotalScoreRecords else '--') }}</div>
+        </div>
+        <div class="statcard">
+          <div class="statcard-k">Time</div>
+          <div class="statcard-v">{{ (s.resTotalScoreRecords.time if s  and  s.resTotalScoreRecords else '--') }}</div>
+        </div>
+      </div>
+      <div class="card-s">按 score 事件累加谱面 note 信息</div>
+    </div>
+  </section>
+
+  <section class="grid grid-3">
+    <div class="card">
+      <div class="card-h">新纪录最多</div>
+      <div class="ranklist">
+        {% for it in s.mostNewRecordsDaysTop3 %}{% set idx = loop.index0 %}
+          <div class="rankitem">
+            <div class="rankno">#{{ idx + 1 }}</div>
+            <div class="rankmain">{{ it.day }}</div>
+            <div class="rankside strong">{{ (it.count|default(0)) }}</div>
+          </div>
+        {% endfor %}
+        {% if not (s.mostNewRecordsDaysTop3  and  s.mostNewRecordsDaysTop3.length) %}
+          <div class="rankitem">
+            <div class="rankno">#1</div>
+            <div class="rankmain">--</div>
+            <div class="rankside">--</div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="card-s">同曲目+难度：score 更高，或同分 acc 更高</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">Data 最大波动</div>
+      <div class="split">
+        <div class="split-item">
+          <div class="badge up">UP</div>
+          <div class="split-body">
+            <div class="split-line"><span>日期</span><span>{{ s.dataMaxUpDownDay.up.day }}</span></div>
+            <div class="split-line"><span>增量</span><span class="strong">{{ s.dataMaxUpDownDay.up.deltaBytes }}</span></div>
+          </div>
+        </div>
+        <div class="split-item">
+          <div class="badge down">DOWN</div>
+          <div class="split-body">
+            <div class="split-line"><span>日期</span><span>{{ s.dataMaxUpDownDay.down.day }}</span></div>
+            <div class="split-line"><span>增量</span><span class="strong">{{ s.dataMaxUpDownDay.down.deltaBytes }}</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-s">按天累计字节变化（KiB/MiB/GiB 自动换算）</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">推分最晚</div>
+      <div class="ranklist">
+        {% for it in s.latestPushScoreDaysTop3 %}{% set idx = loop.index0 %}
+          <div class="rankitem">
+            <div class="rankno">#{{ idx + 1 }}</div>
+            <div class="rankmain">{{ it.day }}</div>
+            <div class="rankside strong">{{ it.time }}</div>
+          </div>
+        {% endfor %}
+        {% if not (s.latestPushScoreDaysTop3  and  s.latestPushScoreDaysTop3.length) %}
+          <div class="rankitem">
+            <div class="rankno">#1</div>
+            <div class="rankmain">--</div>
+            <div class="rankside">--</div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="card-s">从 score 事件中取每一天的最晚时间，再取全局最大</div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <div class="card-h">AP 最多</div>
+      <div class="ranklist mostApDaysTop3">
+        {% for it in s.mostApDaysTop3 %}{% set idx = loop.index0 %}
+          <div class="rankitem">
+            <div class="rankno">#{{ idx + 1 }}</div>
+            <div class="rankmain">{{ it.day }}</div>
+            <div class="rankside strong">{{ (it.count|default(0)) }}</div>
+          </div>
+        {% endfor %}
+        {% if not (s.mostApDaysTop3  and  s.mostApDaysTop3.length) %}
+          <div class="rankitem">
+            <div class="rankno">#1</div>
+            <div class="rankmain">--</div>
+            <div class="rankside">--</div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="card-s">按“曲目+难度首次达到 AP”的事件计数</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="createdbox">
+      <div class="phi-plugin"><p>{{ _plugin }}</p></div>
+      <div class="ver"><p>{{ Version.ver }}</p></div>
+    </div>
+  </footer>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{# Generated from phi-plugin art-template syntax. Review docs/jinja2-template-migration.md before runtime use. #}
+{% extends "common/layout/default.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{ _res_path }}html/newSong/newSong.css">
+
+{% endblock %}
+
+{% block main %}
+
+    
+        <table border="1">
+            <tbody>
+            {% for e in ans %}
+                <tr>
+                {% for d in e %}
+                {% if (d.col !=0  and  d.row !=0) %}
+                {% if d.col == 4 %}
+                    <th
+                     {{ ('colspan=${d.col}' if d.col else '') }} 
+                     {{ ('rowspan=${d.row}' if d.row else '') }} 
+                     style="background-color: {{ d.bkg }}; color: {{ d.color }}">{{ d.cnt }}</th>
+                {% else %}
+                    <td
+                     {{ ('colspan=${d.col}' if d.col else '') }}
+                     {{ ('rowspan=${d.row}' if d.row else '') }}
+                     style="background-color: {{ d.bkg }}; color: {{ d.color }}">{{ d.cnt }}</td>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}

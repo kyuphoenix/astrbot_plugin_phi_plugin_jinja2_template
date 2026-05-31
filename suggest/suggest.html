@@ -1,0 +1,272 @@
+{# Generated from phi-plugin art-template syntax. Review docs/jinja2-template-migration.md before runtime use. #}
+{% extends "common/layout/default.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{ _res_path }}html/suggest/suggest.css">
+{% endblock %}
+
+{% block main %}
+<div class="head_title">
+  <p>{{ head_title }}</p>
+</div>
+
+<div class="group_list">
+  <div class="group group-phi">
+    <div class="group_title"><p>phi</p></div>
+    <div class="row_box">
+      {% if phisong  and  phisong.length %}
+      {% for line in phisong %}
+      <div class="line">
+        <div class="song_name">
+          <div class="num"><span name="pvis">{{ loop.index0 + 1 }}</span></div>
+          <div class="song"><span name="pvis">{{ line.song }} - {{ line.composer }}</span></div>
+          <div class="dif {{ line.level }}"><span name="pvis">{{ (line.chart  and  line.chart[line.level]  and  line.chart[line.level].difficulty)  or  '---' }}</span></div>
+        </div>
+        <div class="ill_box">
+          <img src="{{ line.illustration }}" alt="{{ line.illustration }}">
+        </div>
+        <div class="info_box">
+          <div class="down">
+            <div class="acc">
+              <div class="box-content">AP Count</div>
+              <div class="suggest suggest-kind-5">{{ line.apCount }} / {{ line.total  or  0 }}</div>
+            </div>
+            <div class="score_rating">
+              <div class="score">{{ line.level }}</div>
+              <div class="rating">
+                <img src="{{ _res_path }}html/otherimg/phi.png" alt="phi">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="group group-kind-5">
+    <div class="group_title"><p>99.85% ~ 100%</p></div>
+    <div class="row_box">
+      {% if song  and  song[5]  and  song[5].length %}
+      {% for line in song[5] %}
+      <div class="line">
+        <div class="song_name">
+          <div class="num"><span name="pvis">{{ loop.index0 + 1 }}</span></div>
+          <div class="song"><span name="pvis">{{ line.song }} - {{ line.composer }}</span></div>
+          <div class="dif {{ line.rank }}"><span name="pvis">{{ line.difficulty }}</span></div>
+        </div>
+        <div class="ill_box">
+          <img src="{{ line.illustration }}" alt="{{ line.illustration }}">
+        </div>
+        <div class="info_box">
+          <div class="down">
+            <div class="acc">
+              <div class="box-content">{{ (('%.4f'|format(line.acc)) if line.acc else '---') }}%</div>
+              <div class="suggest suggest-kind-5">&gt; {{ ('%.4f'|format(line.suggest))  or  '---' }}</div>
+            </div>
+            <div class="score_rating">
+              <div class="score">{{ line.score }}</div>
+              <div class="rating">
+                <img src="{{ ('${_res_path}html/otherimg/${line.Rating}.png' if line.Rating else '${_res_path}html/otherimg/NEW.png') }}" alt="{{ line.Rating }}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="group group-kind-4">
+    <div class="group_title"><p>99.70% ~ 99.85%</p></div>
+    <div class="row_box">
+      {% if song  and  song[4]  and  song[4].length %}
+      {% for line in song[4] %}
+      <div class="line">
+        <div class="song_name">
+          <div class="num"><span name="pvis">{{ loop.index0 + 1 }}</span></div>
+          <div class="song"><span name="pvis">{{ line.song }} - {{ line.composer }}</span></div>
+          <div class="dif {{ line.rank }}"><span name="pvis">{{ line.difficulty }}</span></div>
+        </div>
+        <div class="ill_box">
+          <img src="{{ line.illustration }}" alt="{{ line.illustration }}">
+        </div>
+        <div class="info_box">
+          <div class="down">
+            <div class="acc">
+              <div class="box-content">{{ (('%.4f'|format(line.acc)) if line.acc else '---') }}%</div>
+              <div class="suggest suggest-kind-4">&gt; {{ ('%.4f'|format(line.suggest))  or  '---' }}</div>
+            </div>
+            <div class="score_rating">
+              <div class="score">{{ line.score }}</div>
+              <div class="rating">
+                <img src="{{ ('${_res_path}html/otherimg/${line.Rating}.png' if line.Rating else '${_res_path}html/otherimg/NEW.png') }}" alt="{{ line.Rating }}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="group group-kind-3">
+    <div class="group_title"><p>99.50% ~ 99.70%</p></div>
+    <div class="row_box">
+      {% if song  and  song[3]  and  song[3].length %}
+      {% for line in song[3] %}
+      <div class="line">
+        <div class="song_name">
+          <div class="num"><span name="pvis">{{ loop.index0 + 1 }}</span></div>
+          <div class="song"><span name="pvis">{{ line.song }} - {{ line.composer }}</span></div>
+          <div class="dif {{ line.rank }}"><span name="pvis">{{ line.difficulty }}</span></div>
+        </div>
+        <div class="ill_box">
+          <img src="{{ line.illustration }}" alt="{{ line.illustration }}">
+        </div>
+        <div class="info_box">
+          <div class="down">
+            <div class="acc">
+              <div class="box-content">{{ (('%.4f'|format(line.acc)) if line.acc else '---') }}%</div>
+              <div class="suggest suggest-kind-3">&gt; {{ ('%.4f'|format(line.suggest))  or  '---' }}</div>
+            </div>
+            <div class="score_rating">
+              <div class="score">{{ line.score }}</div>
+              <div class="rating">
+                <img src="{{ ('${_res_path}html/otherimg/${line.Rating}.png' if line.Rating else '${_res_path}html/otherimg/NEW.png') }}" alt="{{ line.Rating }}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="group group-kind-2">
+    <div class="group_title"><p>99.00% ~ 99.50%</p></div>
+    <div class="row_box">
+      {% if song  and  song[2]  and  song[2].length %}
+      {% for line in song[2] %}
+      <div class="line">
+        <div class="song_name">
+          <div class="num"><span name="pvis">{{ loop.index0 + 1 }}</span></div>
+          <div class="song"><span name="pvis">{{ line.song }} - {{ line.composer }}</span></div>
+          <div class="dif {{ line.rank }}"><span name="pvis">{{ line.difficulty }}</span></div>
+        </div>
+        <div class="ill_box">
+          <img src="{{ line.illustration }}" alt="{{ line.illustration }}">
+        </div>
+        <div class="info_box">
+          <div class="down">
+            <div class="acc">
+              <div class="box-content">{{ (('%.4f'|format(line.acc)) if line.acc else '---') }}%</div>
+              <div class="suggest suggest-kind-2">&gt; {{ ('%.4f'|format(line.suggest))  or  '---' }}</div>
+            </div>
+            <div class="score_rating">
+              <div class="score">{{ line.score }}</div>
+              <div class="rating">
+                <img src="{{ ('${_res_path}html/otherimg/${line.Rating}.png' if line.Rating else '${_res_path}html/otherimg/NEW.png') }}" alt="{{ line.Rating }}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="group group-kind-1">
+    <div class="group_title"><p>98.50% ~ 99.00%</p></div>
+    <div class="row_box">
+      {% if song  and  song[1]  and  song[1].length %}
+      {% for line in song[1] %}
+      <div class="line">
+        <div class="song_name">
+          <div class="num"><span name="pvis">{{ loop.index0 + 1 }}</span></div>
+          <div class="song"><span name="pvis">{{ line.song }} - {{ line.composer }}</span></div>
+          <div class="dif {{ line.rank }}"><span name="pvis">{{ line.difficulty }}</span></div>
+        </div>
+        <div class="ill_box">
+          <img src="{{ line.illustration }}" alt="{{ line.illustration }}">
+        </div>
+        <div class="info_box">
+          <div class="down">
+            <div class="acc">
+              <div class="box-content">{{ (('%.4f'|format(line.acc)) if line.acc else '---') }}%</div>
+              <div class="suggest suggest-kind-1">&gt; {{ ('%.4f'|format(line.suggest))  or  '---' }}</div>
+            </div>
+            <div class="score_rating">
+              <div class="score">{{ line.score }}</div>
+              <div class="rating">
+                <img src="{{ ('${_res_path}html/otherimg/${line.Rating}.png' if line.Rating else '${_res_path}html/otherimg/NEW.png') }}" alt="{{ line.Rating }}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="group group-kind-0">
+    <div class="group_title"><p>00.00% ~ 98.50%</p></div>
+    <div class="row_box">
+      {% if song  and  song[0]  and  song[0].length %}
+      {% for line in song[0] %}
+      <div class="line">
+        <div class="song_name">
+          <div class="num"><span name="pvis">{{ loop.index0 + 1 }}</span></div>
+          <div class="song"><span name="pvis">{{ line.song }} - {{ line.composer }}</span></div>
+          <div class="dif {{ line.rank }}"><span name="pvis">{{ line.difficulty }}</span></div>
+        </div>
+        <div class="ill_box">
+          <img src="{{ line.illustration }}" alt="{{ line.illustration }}">
+        </div>
+        <div class="info_box">
+          <div class="down">
+            <div class="acc">
+              <div class="box-content">{{ (('%.4f'|format(line.acc)) if line.acc else '---') }}%</div>
+              <div class="suggest suggest-kind-0">&gt; {{ ('%.4f'|format(line.suggest))  or  '---' }}</div>
+            </div>
+            <div class="score_rating">
+              <div class="score">{{ line.score }}</div>
+              <div class="rating">
+                <img src="{{ ('${_res_path}html/otherimg/${line.Rating}.png' if line.Rating else '${_res_path}html/otherimg/NEW.png') }}" alt="{{ line.Rating }}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="createdbox">
+  <div class="phi-plugin">
+    <p>{{ _plugin }}</p>
+  </div>
+  <div class="ver">
+    <p>{{ Version.ver }}</p>
+  </div>
+</div>
+
+{% if theme == "snow" %}
+<div class="snow-box"></div>
+<script>
+  themeSnow();
+</script>
+{% elif theme == "star" %}
+<canvas id="stars"></canvas>
+<script>
+  themeStar();
+</script>
+{% endif %}
+{% endblock %}

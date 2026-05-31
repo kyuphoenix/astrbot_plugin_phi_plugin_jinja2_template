@@ -1,0 +1,49 @@
+{# Generated from phi-plugin art-template syntax. Review docs/jinja2-template-migration.md before runtime use. #}
+{% extends "common/layout/default.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{ _res_path }}html/setting/userSetting.css">
+{% endblock %}
+
+{% block main %}
+<div class="page-wrap">
+    <div class="panel">
+        <div class="title-box">
+            <p class="page-title">{{ pageTitle }}</p>
+            <p class="page-desc">{{ pageDescription }}</p>
+        </div>
+
+        {% for as in items %}{% set item = loop.index0 %}
+        <div class="setting-group">
+            <div class="setting-head">
+                <p class="setting-title">{{ item.title }}</p>
+                <p class="setting-current">当前：{{ item.currentTitle }}</p>
+            </div>
+            <p class="setting-desc">{{ item.description }}</p>
+
+            <div class="option-row">
+                {% for as in item.options %}{% set option = loop.index0 %}
+                <div class="option-card{{ (' selected' if option.selected else '') }}">
+                    <div class="option-title-line">
+                        <p class="option-title">{{ option.title }}</p>
+                        {% if option.selected %}
+                        <span class="option-tag">已选中</span>
+                        {% endif %}
+                    </div>
+                    <p class="option-desc">{{ option.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="createdbox">
+        <div class="phi-plugin">
+            <p>{{ _plugin }}</p>
+        </div>
+        <div class="ver">
+            <p>{{ Version.ver }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

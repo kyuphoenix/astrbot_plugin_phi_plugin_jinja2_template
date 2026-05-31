@@ -1,0 +1,48 @@
+{# Generated from phi-plugin art-template syntax. Review docs/jinja2-template-migration.md before runtime use. #}
+{% extends "common/layout/default.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ _res_path }}html/newnotice/newnotice.css">
+{% endblock %}
+
+{% block main %}
+{% set notices = notices|default(_data.info|default(_data.notices|default(_data.list|default([]), true), true), true) %}
+
+<main class="notice-page">
+    {% if notices|length %}
+    {% for notice in notices %}
+    {% set lines = (notice.content  or  '').split('\n') %}
+    <article class="notice-card">
+        <h1 class="notice-title">{{ notice.title }}</h1>
+
+        {% if notice.date %}
+        <div class="notice-date">{{ notice.date_text|default(notice.date, true) }}</div>
+        {% endif %}
+
+        <section class="notice-content">
+            {% for line in lines %}
+            {% if line|trim %}
+            {% if (line|trim).startswith('#') %}
+            <p class="notice-tags">{{ line }}</p>
+            {% else %}
+            <p>{{ line }}</p>
+            {% endif %}
+            {% else %}
+            <div class="notice-space"></div>
+            {% endif %}
+            {% endfor %}
+        </section>
+
+        {% if notice.image %}
+        <img class="notice-image" src="{{ notice.image }}" alt="{{ notice.title }}">
+        {% endif %}
+    </article>
+    {% endfor %}
+    {% else %}
+    <article class="notice-card empty">
+        <h1 class="notice-title">暂无公告</h1>
+    </article>
+    {% endif %}
+</main>
+{% endblock %}
+

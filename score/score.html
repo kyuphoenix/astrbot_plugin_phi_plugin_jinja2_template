@@ -85,7 +85,7 @@
                     <p>{{ song.difficulty  or  '-' }}</p>
                 </div>
                 <div class="a_rank_name">
-                    <p>{{ loop.index0 }}</p>
+                    <p>{{ song.rank }}</p>
                 </div>
             </div>
             {% endif %}
@@ -113,9 +113,9 @@
         </div>
         <div class="stats-box">
             {% for rank in scoreData %}
-            <div class="one-stats-box {{ loop.index0 }}" id="{{ rank.Rating  or  'NEW' }}">
+            <div class="one-stats-box {{ rank.rank }}" id="{{ rank.Rating  or  'NEW' }}">
                 <div class="rank">
-                    <p>{{ loop.index0 }}</p>
+                    <p>{{ rank.rank }}</p>
                 </div>
                 {% if rank.Rating %}
                 <div class="stats-up">

@@ -119,7 +119,7 @@
         </div>
         <div class="b30list">
             {% for e in me.b30list %}{% set index = loop.index0 %}
-            <div class="b30Alist {{ index }}">
+            <div class="b30Alist {{ e.key|default(index) }}">
                 <p>{{ e.title }}</p>
                 {% if e.list|default([])|length %}
                 {% for song in e.list %}

@@ -17,7 +17,7 @@
         <div class="line">
             <div class="song_name">
                 <div class="num"><span name="pvis">{{ loop.index0 + 1 }}</span></div>
-                <div class="song"><span name="pvis">{{ line.song }} - {{ line.composer }}</span></div>
+                <div class="song"><span name="pvis">{{ line.song }}{% if line.composer %} - {{ line.composer }}{% endif %}</span></div>
                 <div class="dif {{ line.rank }}"><span name="pvis">{{ line.difficulty }}</span></div>
             </div>
             <div class="ill_box">
@@ -26,13 +26,13 @@
             <div class="info_box">
                 <div class="down">
                     <div class="acc">
-                        <div class="box-content">{{ (('%.4f'|format(line.acc)) if line.acc else '---') }}%</div>
+                        <div class="box-content">{{ ('%.4f'|format(line.acc)) if line.acc is not none else '---' }}%</div>
                         <div class="suggest">> {{ line.suggest  or  '---' }}</div>
                     </div>
                     <div class="score_rating">
                         <div class="score">{{ line.score }}</div>
                         <div class="rating">
-                            <img src="{{ ('${_res_path}html/otherimg/${line.Rating}.png' if line.Rating else '${_res_path}html/otherimg/NEW.png') }}"
+                            <img src="{{ _res_path ~ 'html/otherimg/' ~ (line.Rating or 'NEW') ~ '.png' }}{# html/otherimg/NEW.png #}"
                                 alt="{{ line.Rating }}">
                         </div>
                     </div>

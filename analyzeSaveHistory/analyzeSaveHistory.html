@@ -75,7 +75,7 @@
             <div class="rankside">{{ (it.count|default(0)) }}</div>
           </div>
         {% endfor %}
-        {% if not (s.mostPlayedSongsTop3  and  s.mostPlayedSongsTop3.length) %}
+        {% if not (s.mostPlayedSongsTop3  and  s.mostPlayedSongsTop3|length) %}
           <div class="rankitem">
             <div class="rankno">#1</div>
             <div class="rankmain">--</div>
@@ -133,7 +133,7 @@
             <div class="rankside strong">{{ (it.count|default(0)) }}</div>
           </div>
         {% endfor %}
-        {% if not (s.mostNewRecordsDaysTop3  and  s.mostNewRecordsDaysTop3.length) %}
+        {% if not (s.mostNewRecordsDaysTop3  and  s.mostNewRecordsDaysTop3|length) %}
           <div class="rankitem">
             <div class="rankno">#1</div>
             <div class="rankmain">--</div>
@@ -175,7 +175,7 @@
             <div class="rankside strong">{{ it.time }}</div>
           </div>
         {% endfor %}
-        {% if not (s.latestPushScoreDaysTop3  and  s.latestPushScoreDaysTop3.length) %}
+        {% if not (s.latestPushScoreDaysTop3  and  s.latestPushScoreDaysTop3|length) %}
           <div class="rankitem">
             <div class="rankno">#1</div>
             <div class="rankmain">--</div>
@@ -198,7 +198,7 @@
             <div class="rankside strong">{{ (it.count|default(0)) }}</div>
           </div>
         {% endfor %}
-        {% if not (s.mostApDaysTop3  and  s.mostApDaysTop3.length) %}
+        {% if not (s.mostApDaysTop3  and  s.mostApDaysTop3|length) %}
           <div class="rankitem">
             <div class="rankno">#1</div>
             <div class="rankmain">--</div>

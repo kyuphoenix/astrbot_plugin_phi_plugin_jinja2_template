@@ -12,7 +12,7 @@
             <p class="page-desc">{{ pageDescription }}</p>
         </div>
 
-        {% for as in items %}{% set item = loop.index0 %}
+        {% for item in items %}
         <div class="setting-group">
             <div class="setting-head">
                 <p class="setting-title">{{ item.title }}</p>
@@ -21,7 +21,7 @@
             <p class="setting-desc">{{ item.description }}</p>
 
             <div class="option-row">
-                {% for as in item.options %}{% set option = loop.index0 %}
+                {% for option in item.options %}
                 <div class="option-card{{ (' selected' if option.selected else '') }}">
                     <div class="option-title-line">
                         <p class="option-title">{{ option.title }}</p>

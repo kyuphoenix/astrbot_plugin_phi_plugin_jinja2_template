@@ -1,7 +1,7 @@
 {# Generated from phi-plugin art-template syntax. Review docs/jinja2-template-migration.md before runtime use. #}
 {% extends "common/layout/default.html" %}
 {% block css %}
-    <link rel="stylesheet" href="{{ _res_path }}html/rankingList/rankingList.css">
+    <link rel="stylesheet" href="{{ _res_path }}html/rankingList-old/rankingList.css">
 {% endblock %}
 
 {% block main %}
@@ -25,7 +25,7 @@
                 <img src="{{ _res_path }}html/avatar/{{ user.avatar }}.png" alt="{{ user.avatar }}">
             </div>
             <div class="rankNum">
-                <p>#{{ user.index + 1 }}</p>
+                <p>#{{ user.index }}</p>
             </div>
             <div class="info_box">
                 <div class="playerId">
@@ -67,7 +67,7 @@
                 <img src="{{ _res_path }}html/avatar/{{ user.avatar }}.png" alt="{{ user.avatar }}">
             </div>
             <div class="info">
-                <p>#{{ user.index + 1 }} {{ user.playerId|safe }}</p>
+                <p>#{{ user.index }} {{ user.playerId|safe }}</p>
                 <div class="line"></div>
                 <div class="Challenge">
                     <img src="{{ _res_path }}html/otherimg/{{ user.ChallengeMode }}.png" alt="{{ user.ChallengeMode }}">

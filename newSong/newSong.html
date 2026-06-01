@@ -16,13 +16,13 @@
                 {% if (d.col !=0  and  d.row !=0) %}
                 {% if d.col == 4 %}
                     <th
-                     {{ ('colspan=${d.col}' if d.col else '') }} 
-                     {{ ('rowspan=${d.row}' if d.row else '') }} 
+                     colspan="{{ d.col }}"
+                     rowspan="{{ d.row }}"
                      style="background-color: {{ d.bkg }}; color: {{ d.color }}">{{ d.cnt }}</th>
                 {% else %}
                     <td
-                     {{ ('colspan=${d.col}' if d.col else '') }}
-                     {{ ('rowspan=${d.row}' if d.row else '') }}
+                     colspan="{{ d.col }}"
+                     rowspan="{{ d.row }}"
                      style="background-color: {{ d.bkg }}; color: {{ d.color }}">{{ d.cnt }}</td>
                 {% endif %}
                 {% endif %}
